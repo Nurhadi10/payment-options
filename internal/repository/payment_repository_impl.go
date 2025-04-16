@@ -64,4 +64,12 @@ func (r *paymentRepo) CallBRIDD() models.PaymentMethod {
 		Balance: "10000",
 		Icon:    "https://sampleurl.com/bridd.jpg",
 	}
+
+func (r *paymentRepo) CallLinkAja() models.PaymentMethod {
+	return models.PaymentMethod{
+		Account: "0812xx", 
+		Status:  "Active", 
+		Balance: "150000", 
+		Icon:    "https://sampleurl.com/linkaja.jpg",
+	}
 }
