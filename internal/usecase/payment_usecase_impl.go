@@ -15,17 +15,64 @@ func NewPaymentUsecase(r repository.PaymentRepository) PaymentUsecase {
 }
 
 func (u *paymentUsecase) GetPaymentOptions() (map[string]models.PaymentMethod, error) {
+    var wg sync.WaitGroup
     result := make(map[string]models.PaymentMethod)
+    mu := sync.Mutex{}
 
-    result["ovo"] = u.repo.CallOVO()
-    result["dana"] = u.repo.CallDANA()
-    result["gopay"] = u.repo.CallGoPay()
-    result["shopee"] = u.repo.CallShopee()
-    result["oneklik"] = u.repo.CallOneKlik()
-    result["bridd"] = u.repo.CallBRIDD()
-    result["linkaja"] = u.repo.CallLinkAja()
+    wg.Add(7)  // For 7 payment methods
 
+    go func() {
+        defer wg.Done()
+        mu.Lock()
+        result["ovo"] = u.repo.CallOVO()
+        mu.Unlock()
+    }()
+
+    go func() {
+        defer wg.Done()
+        mu.Lock()
+        result["dana"] = u.repo.CallDANA()
+        mu.Unlock()
+    }()
+
+    go func() {
+        defer wg.Done()
+        mu.Lock()
+        result["gopay"] = u.repo.CallGoPay()
+        mu.Unlock()
+    }()
+
+    go func() {
+        defer wg.Done()
+        mu.Lock()
+        result["shopee"] = u.repo.CallShopee()
+        mu.Unlock()
+    }()
+
+    go func() {
+        defer wg.Done()
+        mu.Lock()
+        result["oneklik"] = u.repo.CallOneKlik()
+        mu.Unlock()
+    }()
+
+    go func() {
+        defer wg.Done()
+        mu.Lock()
+        result["bridd"] = u.repo.CallBRIDD()
+        mu.Unlock()
+    }()
+
+    go func() {
+        defer wg.Done()
+        mu.Lock()
+        result["linkaja"] = u.repo.CallLinkAja()
+        mu.Unlock()
+    }()
+
+    wg.Wait()
     return result, nil
 }
+
 
 
