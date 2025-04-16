@@ -12,7 +12,7 @@ func NewPaymentRepo() PaymentRepository {
 }
 
 func (r *paymentRepo) CallOVO() models.PaymentMethod {
-	time.Sleep(2 * time.Second) // Simulate network delay
+// Simulate network delay
 	return models.PaymentMethod{
 		Account: "6288xx",
 		Status:  "Active",
@@ -73,4 +73,5 @@ func (r *paymentRepo) CallLinkAja() models.PaymentMethod {
 		Icon:    "https://sampleurl.com/linkaja.jpg",
 	}
 }
+
 
