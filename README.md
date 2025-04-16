@@ -4,7 +4,7 @@ A simple Go web service to simulate multiple payment methods for implementing go
 
 ## Clone Repository
 ```bash
-git clone https://github.com/exelpratamaq3/payment-options
+git clone https://github.com/exelpratama13/payment-options
 cd payment-options
 ```
 
