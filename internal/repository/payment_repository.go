@@ -9,4 +9,5 @@ type PaymentRepository interface {
 	CallShopee() models.PaymentMethod
 	CallOneKlik() models.PaymentMethod
 	CallBRIDD() models.PaymentMethod
+	CallLinkAja() models.PaymentMethod
 }
