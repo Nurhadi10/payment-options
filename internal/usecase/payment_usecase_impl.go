@@ -63,6 +63,13 @@ func (u *paymentUsecase) GetPaymentOptions() (map[string]models.PaymentMethod, e
 		mu.Unlock()
 	}()
 
+	go func() {
+		defer wg.Done()
+		mu.Lock()
+		result["linkaja"] = u.repo.CallLinkAja()     
+		mu.Unlock()
+	}()
+
 	wg.Wait()
 	return result, nil
 }
