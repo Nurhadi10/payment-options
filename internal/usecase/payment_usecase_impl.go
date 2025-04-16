@@ -19,8 +19,9 @@ func (u *paymentUsecase) GetPaymentOptions() (map[string]models.PaymentMethod, e
 	result := make(map[string]models.PaymentMethod)
 	mu := sync.Mutex{}
 
-	wg.Add(6)
+	wg.Add(7)  // Changed from 6 to 7 to match the number of goroutines
 
+	// Each payment method runs in its own goroutine
 	go func() {
 		defer wg.Done()
 		mu.Lock()
@@ -66,10 +67,11 @@ func (u *paymentUsecase) GetPaymentOptions() (map[string]models.PaymentMethod, e
 	go func() {
 		defer wg.Done()
 		mu.Lock()
-		result["linkaja"] = u.repo.CallLinkAja()     
+		result["linkaja"] = u.repo.CallLinkAja()
 		mu.Unlock()
 	}()
 
 	wg.Wait()
 	return result, nil
 }
+
